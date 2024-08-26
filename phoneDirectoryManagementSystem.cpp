@@ -19,14 +19,14 @@ public:
 };
 
 
-void listAllFiles(const string& path) { // TO see the list files
+void listAllFiles(const string& path) { 
     cout << "List of all Files:\n";
     for (const auto& entry : fs::directory_iterator(path)) {
         cout << entry.path().filename().string() << endl;
     }
 }
 
-void listFilesByExtension(const string& path, const string& extension) { // to see list of  extension files
+void listFilesByExtension(const string& path, const string& extension) { 
     cout << "Listing Files with Extension: " << extension << endl;
     int count = 0;
     for (const auto& entry : fs::directory_iterator(path)) {
@@ -39,7 +39,7 @@ void listFilesByExtension(const string& path, const string& extension) { // to s
         cout << "No files found with extension " << extension << endl;
 }
 
-void listFilesByPattern(const string& path, const string& pattern) { // too see files from extension
+void listFilesByPattern(const string& path, const string& pattern) { 
     cout << "Listing Files Matching Pattern: " << pattern << endl;
     int count = 0;
     for (const auto& entry : fs::directory_iterator(path)) {
@@ -52,7 +52,7 @@ void listFilesByPattern(const string& path, const string& pattern) { // too see 
         cout << "No files found matching pattern " << pattern << endl;
 }
 
-void createDirectory(const string& path) { // To create new directory
+void createDirectory(const string& path) { 
     if (fs::create_directory(path)) {
         cout << "Directory Successfully Created:" << path << endl;
     } else {
@@ -60,7 +60,7 @@ void createDirectory(const string& path) { // To create new directory
     }
 }
 
-void changeDirectory(string& path) { // To change directory
+void changeDirectory(string& path) { 
     int choice;
     cout << "Change Directory Options:\n";
     cout << "1. Step by step backward. \n";
@@ -90,7 +90,7 @@ void changeDirectory(string& path) { // To change directory
         default:
             cout << "Invalid option!" << endl;
     }
-    fs::current_path(path); // Update the current working directory
+    fs::current_path(path); 
     cout << "Current directory changed to: " << fs::current_path() << endl;
 }
 
@@ -110,7 +110,7 @@ int main() {
         cout << "Enter The Number: ";
         cin >> ch;
 
-        switch (ch) { // main menu choices
+        switch (ch) { 
             case 1: {
                 int subChoice;
                 cout << "\nList Files Detail\n";
@@ -121,7 +121,7 @@ int main() {
                 cout << "Enter your choice: ";
                 cin >> subChoice;
 
-                switch (subChoice) { // DIsplay List of files choices
+                switch (subChoice) { 
                     case 1:
                         listAllFiles(currentPath);
                         break;
@@ -144,17 +144,17 @@ int main() {
                 }
                 break;
             }
-            case 2: { // main menu choices
+            case 2: { 
                 string dirName;
                 cout << "Enter the name of the directory name: ";
                 cin >> dirName;
                 createDirectory(currentPath + "/" + dirName);
                 break;
             }
-            case 3: // main menu choices
+            case 3: 
                 changeDirectory (currentPath);
                 break;
-            case 4: // main menu choices
+            case 4: 
                 cout << "Thank you for using the system. Exiting...\n";
                 return 0;
             default:
