@@ -1,22 +1,31 @@
 #include <iostream>
 #include <string>
 #include <filesystem>
-using namespace std;
 
 namespace fs = std::filesystem;
+using namespace std;
 
+void listAllFiles(const string& path) { 
+    cout << "List of all Files:\n";
+    for (const auto& entry : fs::directory_iterator(path)) {
+        if (fs::is_regular_file(entry)) {
+            cout << entry.path().filename().string() << endl;
+        }
+    }
+}
 
-int lastIndex = 0;
-
-class Directory
-{
-public:
-    long phoneno;
-    string fname, lname;
-
-    Directory(long phoneno = 0, string fname = "", string lname = "")
-        : phoneno(phoneno), fname(fname), lname(lname) {}
-};
+void listFilesByExtension(const string& path, const string& extension) { 
+    cout << "Listing Files with Extension: " << extension << endl;
+    int count = 0;
+    for (const auto& entry : fs::directory_iterator(path)) {
+        if (fs::is_regular_file(entry) && entry.path().extension() == extension) {
+            cout << entry.path().filename().string() << endl;
+            count++;
+        }
+    }
+    if (count == 0)
+        cout << "No files found with extension " << extension << endl;
+}
 
 
 void listAllFiles(const string& path) { 
