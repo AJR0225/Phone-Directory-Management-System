@@ -1,45 +1,78 @@
 #include <iostream>
+#include <direct.h>
 #include <string>
-#include <filesystem>
-
-namespace fs = std::filesystem;
 using namespace std;
 
-void listAllFiles(const string& path) { 
-    cout << "List of all Files:\n";
-    for (const auto& entry : fs::directory_iterator(path)) {
-        if (fs::is_regular_file(entry)) {
-            cout << entry.path().filename().string() << endl;
-        }
-    }
-}
+void display_files();
+void create_directory();
+void modify_directory();
 
-void listFilesByExtension(const string& path, const string& extension) { 
-    cout << "Listing Files with Extension: " << extension << endl;
-    int count = 0;
-    for (const auto& entry : fs::directory_iterator(path)) {
-        if (fs::is_regular_file(entry) && entry.path().extension() == extension) {
-            cout << entry.path().filename().string() << endl;
-            count++;
-        }
-    }
-    if (count == 0)
-        cout << "No files found with extension " << extension << endl;
-}
+	int main() {
+	int selection;
+		while (true) {
+	cout << " Main Menu: " << endl;
+	cout << "--------------------------------\n";
+	cout << "1. Show List of Files\n";
+	cout << "2. Create New Folder\n";
+	cout << "3. Change Current Directory\n";
+	cout << "4. Exit Application\n";
+	cout << "Select Option: ";
+	cin >> selection;
 
+	switch (selection) {
+		case 1:
+			display_files();
+				break;
+		case 2:
+			create_directory();
+				break;
+		case 3:
+			modify_directory();
+				break;
+		case 4:
+		
+		return 0;
+	default:
+		cout << "Invalid selection. Please try again.\n";
+		}	
+	}
+	return 0;
+	}
 
-void listFilesByPattern(const string& path, const string& pattern) { 
-    cout << "Listing Files Matching Pattern: " << pattern << endl;
-    int count = 0;
-    for (const auto& entry : fs::directory_iterator(path)) {
-        if (fs::is_regular_file(entry) && entry.path().filename().string().find(pattern) != string::npos) {
-            cout << entry.path().filename().string() << endl;
-            count++;
-        }
-    }
-    if (count == 0)
-        cout << "No files found matching pattern " << pattern << endl;
-}
+void display_files() {
+	int option;
+	cout << " FILE LIST DETAILS:" << endl;
+	cout << "--------------------------------------\n" << endl;
+	cout << "1. Show All Files\n";
+	cout << "2. Show Files by Extension\n";
+	cout << "3. Show Files by Name\n";
+	cout << "Select Option: ";
+	cin >> option;
+
+	switch (option) {
+		case 1:
+			cout << "Listing all files:\n";
+			system("dir");
+			break;
+		case 2: {
+			string extension;
+			cout << "Enter file extension: ";
+			cin >> extension;
+			system(("dir *." + extension).c_str());
+			break;
+			}
+		case 3: {
+			string name_pattern;
+			cout << "Enter file name pattern: ";
+			cin >> name_pattern;
+			system(("dir " + name_pattern).c_str());
+			break;
+		}
+			default:
+			cout << "Invalid selection. Please try again.\n";
+		}
+	}
+
 
 void createDirectory(const string& path) { 
     if (fs::create_directory(path)) {
