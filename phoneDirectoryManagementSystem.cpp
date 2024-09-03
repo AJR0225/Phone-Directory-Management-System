@@ -28,26 +28,6 @@ void listFilesByExtension(const string& path, const string& extension) {
 }
 
 
-void listAllFiles(const string& path) { 
-    cout << "List of all Files:\n";
-    for (const auto& entry : fs::directory_iterator(path)) {
-        cout << entry.path().filename().string() << endl;
-    }
-}
-
-void listFilesByExtension(const string& path, const string& extension) { 
-    cout << "Listing Files with Extension: " << extension << endl;
-    int count = 0;
-    for (const auto& entry : fs::directory_iterator(path)) {
-        if (fs::is_regular_file(entry) && entry.path().extension() == extension) {
-            cout << entry.path().filename().string() << endl;
-            count++;
-        }
-    }
-    if (count == 0)
-        cout << "No files found with extension " << extension << endl;
-}
-
 void listFilesByPattern(const string& path, const string& pattern) { 
     cout << "Listing Files Matching Pattern: " << pattern << endl;
     int count = 0;
@@ -63,9 +43,9 @@ void listFilesByPattern(const string& path, const string& pattern) {
 
 void createDirectory(const string& path) { 
     if (fs::create_directory(path)) {
-        cout << "Directory Successfully Created:" << path << endl;
+        cout << "Directory Successfully Created: " << path << endl;
     } else {
-        cout << "Error" << endl;
+        cout << "Error creating directory." << endl;
     }
 }
 
