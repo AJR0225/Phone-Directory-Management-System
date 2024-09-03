@@ -52,9 +52,9 @@ void createDirectory(const string& path) {
 void changeDirectory(string& path) { 
     int choice;
     cout << "Change Directory Options:\n";
-    cout << "1. Step by step backward. \n";
-    cout << "2.Goto Root Directory.\n";
-    cout << "3. Forward directory. \n";
+    cout << "1. Step by step backward.\n";
+    cout << "2. Go to Root Directory.\n";
+    cout << "3. Forward directory.\n";
     cout << "Enter your choice: ";
     cin >> choice;
 
@@ -86,70 +86,68 @@ void changeDirectory(string& path) {
 int main() {
 
     string currentPath = fs::current_path().string();
-    int ch;
+    int choice;
 
     cout << "\nWelcome to Phone Directory and File Management System\n";
-    do {
-        cout << "\nMain Menu\n";
-        cout << "_____________\n";
-        cout << "1. Display List of Files\n";
-        cout << "2. Create a New Directory\n";
-        cout << "3. Change the Working Directory\n";
-        cout << "4. Exit\n";
-        cout << "Enter The Number: ";
-        cin >> ch;
+    cout << "\nMain Menu\n";
+    cout << "_____________\n";
+    cout << "1. Display List of Files\n";
+    cout << "2. Create a New Directory\n";
+    cout << "3. Change the Working Directory\n";
+    cout << "4. Exit\n";
+    cout << "Enter The Number: ";
+    cin >> choice;
 
-        switch (ch) { 
-            case 1: {
-                int subChoice;
-                cout << "\nList Files Detail\n";
-                cout << "\n_______________\n";
-                cout << "1. List all files .\n";
-                cout << "2. List of extension files.\n";
-                cout << "3. List of Name Wise     \n";
-                cout << "Enter your choice: ";
-                cin >> subChoice;
+    switch (choice) { 
+        case 1: {
+            int subChoice;
+            cout << "\nList Files Detail\n";
+            cout << "\n_______________\n";
+            cout << "1. List all files.\n";
+            cout << "2. List files by extension.\n";
+            cout << "3. List files by name pattern.\n";
+            cout << "Enter your choice: ";
+            cin >> subChoice;
 
-                switch (subChoice) { 
-                    case 1:
-                        listAllFiles(currentPath);
-                        break;
-                    case 2: {
-                        string extension;
-                        cout << "Enter the file extension (e.g., .txt): ";
-                        cin >> extension;
-                        listFilesByExtension(currentPath, extension);
-                        break;
-                    }
-                    case 3: {
-                        string pattern;
-                        cout << "Enter the file name pattern (e.g., moha*.*): ";
-                        cin >> pattern;
-                        listFilesByPattern(currentPath, pattern);
-                        break;
-                    }
-                    default:
-                        cout << "Invalid option!" << endl;
+            switch (subChoice) { 
+                case 1:
+                    listAllFiles(currentPath);
+                    break;
+                case 2: {
+                    string extension;
+                    cout << "Enter the file extension (e.g., .txt): ";
+                    cin >> extension;
+                    listFilesByExtension(currentPath, extension);
+                    break;
                 }
-                break;
+                case 3: {
+                    string pattern;
+                    cout << "Enter the file name pattern (e.g., moha*.*): ";
+                    cin >> pattern;
+                    listFilesByPattern(currentPath, pattern);
+                    break;
+                }
+                default:
+                    cout << "Invalid option!" << endl;
             }
-            case 2: { 
-                string dirName;
-                cout << "Enter the name of the directory name: ";
-                cin >> dirName;
-                createDirectory(currentPath + "/" + dirName);
-                break;
-            }
-            case 3: 
-                changeDirectory (currentPath);
-                break;
-            case 4: 
-                cout << "Thank you for using the system. Exiting...\n";
-                return 0;
-            default:
-                cout << "Invalid option! Please try again.\n";
+            break;
         }
-    } while (ch != 4);
+        case 2: { 
+            string dirName;
+            cout << "Enter the name of the directory: ";
+            cin >> dirName;
+            createDirectory(currentPath + "/" + dirName);
+            break;
+        }
+        case 3:
+            changeDirectory(currentPath);
+            break;
+        case 4: 
+            cout << "Thank you for using the system. Exiting...\n";
+            return 0;
+        default:
+            cout << "Invalid option! Please try again.\n";
+    }
 
     return 0;
 }
